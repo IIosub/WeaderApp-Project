@@ -1,0 +1,61 @@
+.forecast {
+  background-image: url(img/weather.jpg);
+  background-size: cover;
+  background-color: rgb(209, 206, 206, 0.6);
+  text-align: center;
+  margin-top: 20px;
+  border-radius: 5px;
+  padding: 20px;
+  color: rgb(26, 93, 151);
+}
+
+#search {
+  display: flex;
+  padding: 0 0 20px 0;
+}
+
+#search input {
+  border: none;
+  margin-right: 5px;
+}
+
+#units a {
+  text-decoration: none;
+}
+
+.more-info {
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  font-size: 18px;
+}
+
+.forecast-days {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 12px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.forecast-days div {
+  background-color: rgb(19, 9, 65);
+  padding: 20px;
+  border-radius: 5px;
+  opacity: 0.8;
+  color: rgb(38, 154, 255);
+  font-size: 18px;
+}
+
+.temperature {
+  font-size: 60px;
+}
+
+#search-button,
+#current-button {
+  border-radius: 5px;
+  border: none;
+  background-color: rgb(87, 87, 87);
+  color: white;
+  padding: 5px;
+}
