@@ -15,12 +15,14 @@
 <body>
   <div class="container">
     <div class="forecast">
-      <input type="text" placeholder="Search for a city..." id="city-input" value="" />
-      <button id="search-button">Search</button>
-      <button id="current-button">Current</button>
 
+      <div class="search-engine">
+        <input type="text" placeholder="Search for a city..." id="city-input" value="" />
+        <button id="search-button">Search</button>
+        <button id="current-button">Current</button>
+      </div>
       <div class="live-weather">
-        <h1>Location</h1>
+        <h1>Location 📍🗺️</h1>
 
         <div class="temperatureSection">
           <span id="temperature" class="temperature">°C</span>
@@ -35,8 +37,8 @@
           <span id="currentTime">20:45 </span>
         </p>
 
-        <p id="wind">Wind Speed m/s</p>
-        <p id="pressure">Presure:</p>
+        <p id="wind">Wind Speed: m/s</p>
+        <p id="precipitation">Precipitation: % </p>
         <p id="humidity">Humidity: %</p>
       </div>
     </div>

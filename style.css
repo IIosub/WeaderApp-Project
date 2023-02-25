@@ -9,10 +9,10 @@
 input {
   border-radius: 5px;
   border: none;
-  margin-left: 2px;
 }
 .search-engine {
   display: flex;
+  margin-bottom: 20px;
 }
 .more-info {
   margin-top: 50px;
@@ -39,7 +39,7 @@ input {
 }
 
 .temperature {
-  font-size: 50px;
+  font-size: 45px;
 }
 
 #search-button,

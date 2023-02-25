@@ -1,21 +1,30 @@
-let current = new Date();
-let hours = current.getHours();
-let minutes = current.getMinutes();
-let currentTime = document.querySelector("#currentTime");
-currentTime.innerHTML = `${hours}:${minutes}`;
+let now = new Date();
 
-let days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
+function formatDate() {
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
 
-let currentDay = document.querySelector("#currentDay");
-currentDay.innerHTML = days[current.getDay()];
+  let day = days[now.getDay()];
+
+  let hour = now.getHours();
+  if (hour < 10) {
+    hour = `0${hour}`;
+  }
+
+  let minutes = now.getUTCMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+
+  return `${day} ${hour}:${minutes}`;
+}
 
 // Challenge Current
 let apiKey = "47d2af59f73bf8798b82906354d30ea3";
