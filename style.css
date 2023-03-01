@@ -86,3 +86,8 @@ div.forecast-days div {
   color: rgb(26, 93, 151);
   font-size: 18px;
 }
+
+.temperatureSection {
+  display: flex;
+  justify-content: end;
+}

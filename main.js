@@ -32,7 +32,7 @@ function formatDateAndTime(timestamp) {
 function currentLondonTemperature(response) {
   let cityTemperature = Math.round(response.data.main.temp);
   let temp = document.querySelector(".temperature");
-  temp.innerHTML = `${cityTemperature} `;
+  temp.innerHTML = `${cityTemperature}°C`;
 
   let cityElement = document.querySelector("h1");
   cityElement.innerHTML = response.data.name;
@@ -77,7 +77,7 @@ function getTemperatureAndCity(response) {
   h1.innerHTML = currentCity;
 
   let temp = document.querySelector("#temperature");
-  temp.innerHTML = `${currentCityTemp}°C`;
+  temp.innerHTML = `${currentCityTemp}°C/F`;
 
   let currentDescription = response.data.weather[0].description;
   let description = document.querySelector("#weather-description");
