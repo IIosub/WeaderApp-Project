@@ -16,35 +16,34 @@
 
 <body>
   <div class="container">
-    <div class="forecast">
+    <div class="search-engine">
+      <input type="text" placeholder="Search for a city..." id="city-input" value="">
+      <button id="search-button">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
 
-      <div class="search-engine">
-        <input type="text" placeholder="Search for a city..." id="city-input" value="">
-        <button id="search-button">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
-
-        <button id="current-button">Current</button>
-      </div>
+      <button id="current-button"> <i class="fa-solid fa-location-arrow"></i></button>
+    </div>
+    <div class="flex">
       <div class="live-weather">
-        <h1>Location <i class="fa-solid fa-location-dot"></i> </h1>
+        <h1>London
 
+        </h1>
         <div class="temperatureSection">
-          <span id="temperature" class="temperature">°C/F</span>
+          <span id="temperature" class="temperature">°</span>
+          <p>°C /<a  class="farenheit"href="">F</a></p>
         </div>
-
-        <p id="weather-description"></p>
-      </div>
-
-      <div class="more-info">
+        <p id="weather-description">Cloudy</p>
         <p>
           <span id="currentDay">Saturday </span>,
           <span id="currentTime">20:45 </span>
         </p>
+      </div>
 
+      <div class="more-info">
         <p id="wind">Wind Speed <i class="fa-solid fa-wind"></i></p>
-        <p id="precipitation">Precipitation: % </p>
-        <p id="humidity">Humidity <i class="fa-sharp fa-regular fa-droplet-degree"></i>>
+        <p id="pressure">Pressure: % </p>
+        <p id="humidity">Humidity %</p>
       </div>
     </div>
 
@@ -72,10 +71,31 @@
         <p>9°C</p>
         <img src="img/rainy.svg" alt="rainy" />
       </div>
+
+      <div class="friday">
+        <p>Friday</p>
+        <p>10°C</p>
+        <img src="img/rainy.svg" alt="rainy" />
+      </div>
+
+      <div class="saturday">
+        <p>Saturday</p>
+        <p>13°C</p>
+        <img src="img/rainy.svg" alt="rainy" />
+      </div>
+
+      <div class="Sunday">
+        <p>Sunday</p>
+        <p>13°C</p>
+        <img src="img/rainy.svg" alt="rainy" />
+      </div>
+
     </div>
-    <a class="netlify" href="https://lambent-figolla-996abb.netlify.app">Open-source code</a> by Ioana Iosub
   </div>
 
+  <footer><a href="https://lambent-figolla-996abb.netlify.app">Open-source code</a> by Ioana Iosub</footer>
+
+  </div>
 
 
   <script src="main.js"></script>

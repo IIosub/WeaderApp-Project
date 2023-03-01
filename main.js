@@ -1,3 +1,39 @@
+//First Display London Weather  and 7 days of forecast for start-up;
+
+let apiKey = "47d2af59f73bf8798b82906354d30ea3";
+
+let city = "London";
+let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+function currentLondonTemperature(response) {
+  let cityTemperature = Math.round(response.data.main.temp);
+  let temp = document.querySelector(".temperature");
+  temp.innerHTML = `${cityTemperature} `;
+
+  let cityElement = document.querySelector("h1");
+  cityElement.innerHTML = response.data.name;
+
+  let currentDescription = response.data.weather[0].description;
+  let description = document.querySelector("#weather-description");
+  description.innerHTML = currentDescription;
+
+  document.querySelector(
+    "#wind"
+  ).innerHTML = ` Wind Speed: ${response.data.wind.speed} mph`;
+
+  document.querySelector(
+    "#humidity"
+  ).innerHTML = ` Humidity: ${response.data.main.humidity} %`;
+
+  document.querySelector(
+    "#pressure"
+  ).innerHTML = `Pressure: ${response.data.main.pressure} hPA`;
+}
+
+axios.get(apiUrl).then(currentLondonTemperature);
+
+//Date and Time
+
 let current = new Date();
 let hours = current.getHours();
 let minutes = current.getMinutes();
@@ -18,7 +54,6 @@ let currentDay = document.querySelector("#currentDay");
 currentDay.innerHTML = days[current.getDay()];
 
 // Challenge Current
-let apiKey = "47d2af59f73bf8798b82906354d30ea3";
 
 function getCoordinates(position) {
   let lat = position.coords.latitude;
@@ -41,6 +76,18 @@ function getTemperatureAndCity(response) {
   let currentDescription = response.data.weather[0].description;
   let description = document.querySelector("#weather-description");
   description.innerHTML = currentDescription;
+
+  document.querySelector(
+    "#wind"
+  ).innerHTML = ` Wind Speed: ${response.data.wind.speed} mph`;
+
+  document.querySelector(
+    "#humidity"
+  ).innerHTML = ` Humidity: ${response.data.main.humidity} %`;
+
+  document.querySelector(
+    "#pressure"
+  ).innerHTML = `Pressure: ${response.data.main.pressure} hPA`;
 }
 
 function displayCurrentCityAndTemp(event) {
@@ -71,15 +118,15 @@ function worldTemperature(response) {
 
   document.querySelector(
     "#wind"
-  ).innerHTML = ` Wind Speed:${response.data.wind.speed} mph`;
+  ).innerHTML = ` Wind Speed: ${response.data.wind.speed} mph`;
 
   document.querySelector(
     "#humidity"
-  ).innerHTML = ` Humidity:${response.data.main.humidity}%`;
+  ).innerHTML = ` Humidity: ${response.data.main.humidity} %`;
 
   document.querySelector(
     "#pressure"
-  ).innerHTML = `Pressure:${response.data.main.pressure}hPA`;
+  ).innerHTML = `Pressure: ${response.data.main.pressure} hPA`;
 
   //11 Select h1 and replace with the name of the city
   let h1 = document.querySelector("h1");
