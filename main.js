@@ -5,6 +5,30 @@ let apiKey = "47d2af59f73bf8798b82906354d30ea3";
 let city = "London";
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
+function formatDateAndTime(timestamp) {
+  let now = new Date(timestamp);
+  let hours = now.getHours();
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  let minutes = now.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = days[now.getDay()];
+
+  return `${day} ${hours}:${minutes}`;
+}
+
 function currentLondonTemperature(response) {
   let cityTemperature = Math.round(response.data.main.temp);
   let temp = document.querySelector(".temperature");
@@ -17,9 +41,9 @@ function currentLondonTemperature(response) {
   let description = document.querySelector("#weather-description");
   description.innerHTML = currentDescription;
 
-  document.querySelector(
-    "#wind"
-  ).innerHTML = ` Wind Speed: ${response.data.wind.speed} mph`;
+  document.querySelector("#wind").innerHTML = ` Wind Speed: ${Math.round(
+    response.data.wind.speed
+  )} mph`;
 
   document.querySelector(
     "#humidity"
@@ -28,30 +52,12 @@ function currentLondonTemperature(response) {
   document.querySelector(
     "#pressure"
   ).innerHTML = `Pressure: ${response.data.main.pressure} hPA`;
+
+  let dateElement = document.querySelector("#dateElement");
+  dateElement.innerHTML = formatDateAndTime(response.data.dt * 1000);
 }
 
 axios.get(apiUrl).then(currentLondonTemperature);
-
-//Date and Time
-
-let current = new Date();
-let hours = current.getHours();
-let minutes = current.getMinutes();
-let currentTime = document.querySelector("#currentTime");
-currentTime.innerHTML = `${hours}:${minutes}`;
-
-let days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-
-let currentDay = document.querySelector("#currentDay");
-currentDay.innerHTML = days[current.getDay()];
 
 // Challenge Current
 
