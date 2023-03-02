@@ -30,6 +30,12 @@ function formatDateAndTime(timestamp) {
 }
 
 function currentLondonTemperature(response) {
+  let iconElement = document.querySelector("#icon");
+  iconElement.setAttribute(
+    "src",
+    `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+
   let cityTemperature = Math.round(response.data.main.temp);
   let temp = document.querySelector(".temperature");
   temp.innerHTML = `${cityTemperature}°C`;
@@ -110,6 +116,11 @@ currentButton.addEventListener("click", displayCurrentCityAndTemp);
 
 // 6 We create the functions
 function worldTemperature(response) {
+  let iconElement = document.querySelector("#icon");
+  iconElement.setAttribute(
+    "src",
+    `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
   // 7 We get the temperature
   let temperature = Math.round(response.data.main.temp);
   // 9 We put select  dosplay temperature
