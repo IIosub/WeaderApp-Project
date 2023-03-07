@@ -35,10 +35,10 @@ function currentLondonTemperature(response) {
     "src",
     `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
-
+  celsiusTemp = Math.round(response.data.main.temp);
   let cityTemperature = Math.round(response.data.main.temp);
   let temp = document.querySelector(".temperature");
-  temp.innerHTML = `${cityTemperature}°C`;
+  temp.innerHTML = `${cityTemperature}°`;
 
   let cityElement = document.querySelector("h1");
   cityElement.innerHTML = response.data.name;
@@ -76,14 +76,13 @@ function getCoordinates(position) {
 }
 
 function getTemperatureAndCity(response) {
-  let currentCity = response.data.name;
   console.log(currentCity);
   let currentCityTemp = Math.round(response.data.main.temp);
   let h1 = document.querySelector("h1");
   h1.innerHTML = currentCity;
 
   let temp = document.querySelector("#temperature");
-  temp.innerHTML = `${currentCityTemp}°C/F`;
+  temp.innerHTML = `${currentCityTemp}°`;
 
   let currentDescription = response.data.weather[0].description;
   let description = document.querySelector("#weather-description");
@@ -122,10 +121,12 @@ function worldTemperature(response) {
     `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   // 7 We get the temperature
+
+  celsiusTemp = Math.round(response.data.main.temp);
   let temperature = Math.round(response.data.main.temp);
   // 9 We put select  dosplay temperature
   let showTemp = document.querySelector("#temperature");
-  showTemp.innerHTML = `${temperature}°C`;
+  showTemp.innerHTML = `${temperature}`;
   // 10 We also also select the description and display
 
   document.querySelector("#weather-description").innerHTML =
@@ -165,3 +166,23 @@ function worldCitiesAndTemp(event) {
 //  1 Firstly we selected the search button and add a eventListener. Then the puton will  be clicked, the function worlsCitiesAndTemp is going to be cold.
 let searchButton = document.querySelector("#search-button");
 searchButton.addEventListener("click", worldCitiesAndTemp);
+
+function convertToFahrenheit(event) {
+  event.preventDefault();
+  let fahrenheitTemp = (celsiusTemp * 9) / 5 + 32;
+  let temperatureElement = document.querySelector("#temperature");
+  temperatureElement.innerHTML = Math.round(fahrenheitTemp);
+}
+
+let celsiusTemp = null;
+let fahrenheitConversion = document.querySelector("#fahrenheit-unit");
+fahrenheitConversion.addEventListener("click", convertToFahrenheit);
+
+function convertToCelsius(event) {
+  event.preventDefault();
+  let tempElemt = document.querySelector("#temperature");
+  tempElemt.innerHTML = Math.round(celsiusTemp);
+}
+
+let celsiusConversion = document.querySelector("#celsius-unit");
+celsiusConversion.addEventListener("click", convertToCelsius);

@@ -45,23 +45,19 @@ input {
   margin-right: 10px;
 }
 
-footer a {
-  text-decoration: none;
-  color: rgb(76, 76, 219);
-}
-
-footer {
-  text-align: center;
-}
-
 .live-weather {
-  display: block;
-  text-align: left;
   width: 50%;
+  margin-bottom: 20px;
+  text-align: left;
+}
+.live-weather#icon {
 }
 
 .temperature {
   font-size: 30px;
+}
+#weather-description:first-letter {
+  text-transform: uppercase;
 }
 
 .flex {
@@ -85,4 +81,26 @@ div.forecast-days div {
   opacity: 0.8;
   color: rgb(26, 93, 151);
   font-size: 18px;
+}
+
+footer a {
+  text-decoration: none;
+  color: rgb(76, 76, 219);
+}
+
+footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+.active {
+  text-decoration: none;
+  color: rgb(99, 99, 180);
+}
+
+.active:hover {
+  color: black;
+
+  cursor: default;
 }
