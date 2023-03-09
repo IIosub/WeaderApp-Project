@@ -10,7 +10,8 @@ body {
   background-size: cover;
   text-align: center;
   border-radius: 10px;
-  padding: 30px;
+  padding: 20px;
+
   color: rgb(26, 93, 151);
 }
 
@@ -50,8 +51,6 @@ input {
   margin-bottom: 20px;
   text-align: left;
 }
-.live-weather#icon {
-}
 
 .temperature {
   font-size: 30px;
@@ -62,25 +61,6 @@ input {
 
 .flex {
   display: flex;
-}
-
-div.forecast-days {
-  overflow: auto;
-  white-space: nowrap;
-}
-
-div.forecast-days div {
-  height: 130px;
-  display: inline-block;
-  text-align: center;
-  padding: 14px;
-  text-decoration: none;
-  border-radius: 10px;
-  background-color: rgb(208, 211, 231);
-  padding: 20px;
-  opacity: 0.8;
-  color: rgb(26, 93, 151);
-  font-size: 18px;
 }
 
 footer a {
@@ -94,6 +74,9 @@ footer {
   font-size: 20px;
 }
 
+#fahrenheit-unit {
+  color: ;
+}
 .active {
   text-decoration: none;
   color: rgb(99, 99, 180);
@@ -101,6 +84,5 @@ footer {
 
 .active:hover {
   color: black;
-
   cursor: default;
 }

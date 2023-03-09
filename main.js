@@ -29,6 +29,37 @@ function formatDateAndTime(timestamp) {
   return `${day} ${hours}:${minutes}`;
 }
 
+//Full Week Forecats
+
+function displayWeeklyForecast() {
+  let weeklyForecast = document.querySelector("#weekly-forecast");
+  let forecastHTML = `<div class="row">`;
+let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue", "Wed"];
+ days.forEach(function(day){
+ forecastHTML =
+    forecastHTML +
+    `<div class="col-2">
+        <div class="week-date">Monday</div>
+        <img src="https://openweathermap.org/img/wn/10d@2x.png" alt="">
+        <div class="day-temperature">
+          <span class="max-temp">10°</span> / <span class="min-temp">2°</span>
+        </div>
+      </div>
+    </div>`;
+ }
+
+ 
+
+  
+
+  forecastHTML = forecastHTML + `</div>`;
+  weeklyForecast.innerHTML = forecastHTML;
+}
+
+displayWeeklyForecast();
+
+///////////////////
+
 function currentLondonTemperature(response) {
   let iconElement = document.querySelector("#icon");
   iconElement.setAttribute(
@@ -38,7 +69,7 @@ function currentLondonTemperature(response) {
   celsiusTemp = Math.round(response.data.main.temp);
   let cityTemperature = Math.round(response.data.main.temp);
   let temp = document.querySelector(".temperature");
-  temp.innerHTML = `${cityTemperature}°`;
+  temp.innerHTML = `${cityTemperature}`;
 
   let cityElement = document.querySelector("h1");
   cityElement.innerHTML = response.data.name;
@@ -180,8 +211,8 @@ fahrenheitConversion.addEventListener("click", convertToFahrenheit);
 
 function convertToCelsius(event) {
   event.preventDefault();
-  let tempElemt = document.querySelector("#temperature");
-  tempElemt.innerHTML = Math.round(celsiusTemp);
+  let temperatureElement = document.querySelector("#temperature");
+  temperatureElement.innerHTML = Math.round(celsiusTemp);
 }
 
 let celsiusConversion = document.querySelector("#celsius-unit");
