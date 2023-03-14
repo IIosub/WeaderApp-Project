@@ -1,6 +1,6 @@
 //First Display London Weather  and 7 days of forecast for start-up;
 
-let apiKey = "47d2af59f73bf8798b82906354d30ea3";
+let apiKey = "04bde8cc7f569f7c5603cdbc6deb89a3";
 
 let city = "London";
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
@@ -31,32 +31,28 @@ function formatDateAndTime(timestamp) {
 
 //Full Week Forecats
 
-function displayWeeklyForecast() {
+function displayWeeklyForecast(response) {
+  console.log(response.data.daily);
   let weeklyForecast = document.querySelector("#weekly-forecast");
   let forecastHTML = `<div class="row">`;
-let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue", "Wed"];
- days.forEach(function(day){
- forecastHTML =
-    forecastHTML +
-    `<div class="col-2">
-        <div class="week-date">Monday</div>
-        <img src="https://openweathermap.org/img/wn/10d@2x.png" alt="">
+  let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue", "Wed"];
+
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `<div class="col-2">
+        <div class="week-date">${day}</div>
+        <img src="https://openweathermap.org/img/wn/10d@2x.png" alt="" width="60">
         <div class="day-temperature">
           <span class="max-temp">10°</span> / <span class="min-temp">2°</span>
         </div>
       </div>
     </div>`;
- }
-
- 
-
-  
+  });
 
   forecastHTML = forecastHTML + `</div>`;
   weeklyForecast.innerHTML = forecastHTML;
 }
-
-displayWeeklyForecast();
 
 ///////////////////
 
@@ -107,7 +103,7 @@ function getCoordinates(position) {
 }
 
 function getTemperatureAndCity(response) {
-  console.log(currentCity);
+  let currentCity = response.data.name;
   let currentCityTemp = Math.round(response.data.main.temp);
   let h1 = document.querySelector("h1");
   h1.innerHTML = currentCity;
@@ -143,6 +139,16 @@ currentButton.addEventListener("click", displayCurrentCityAndTemp);
 //Challange Search
 
 //Explenation: When Selecting The button Search we want to have the search input (city) in the h1, and the the temperature to changed based on the city.
+
+//!!!!!!!!!!!!!!
+
+function getWeeklyForecast(coordinates) {
+  console.log(coordinates);
+  apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayWeeklyForecast);
+}
+
+//!!!!!!!!!!!!!!!
 
 // 6 We create the functions
 function worldTemperature(response) {
@@ -180,6 +186,8 @@ function worldTemperature(response) {
   //11 Select h1 and replace with the name of the city
   let h1 = document.querySelector("h1");
   h1.innerHTML = response.data.name;
+
+  getWeeklyForecast(response.data.coord);
 }
 
 // 2 Secondly we create the funtion wolrdCitiesAndTemp

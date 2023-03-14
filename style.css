@@ -86,3 +86,32 @@ footer {
   color: black;
   cursor: default;
 }
+
+
+.weekly-forecast {
+  overflow: auto;
+  white-space: nowrap;
+
+}
+
+.weekly-forecast  .row, .col-2{
+   display: inline-block;
+  color: rgb(24, 21, 21);
+  text-align: center;
+  margin-right: 5px;
+  background-color: rgb(206, 203, 203, 0.4);
+ border-radius: 5px;
+ 
+ 
+  
+}
+.weekly-forecast .col-2{
+  padding: 10px;
+  color: rgb(99, 99, 180);
+  opacity: ;
+}
+
+
+.min-temp{
+  opacity: 0.7;
+}
