@@ -1,7 +1,7 @@
 body {
   background-color: antiquewhite;
 }
-.container {
+div.container {
   margin: 0 auto;
   width: 30%;
   background-image: url(https://static.vecteezy.com/system/resources/previews/001/953/692/original/abstract-colourful-watercolour-background-free-vector.jpg);
@@ -11,7 +11,6 @@ body {
   text-align: center;
   border-radius: 10px;
   padding: 20px;
-
   color: rgb(26, 93, 151);
 }
 
@@ -23,17 +22,18 @@ input {
   margin-bottom: 20px;
 }
 .more-info {
-  margin-top: 50px;
-  display: block;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  font-size: 18px;
+text-align:center;
+font-size: 15px;
+margin-top: 10%;
+height: 50%;
+
 }
 
 #current-button {
   border-radius: 50px;
   border: none;
   box-shadow: 5px 2px;
-  color: rgb(121, 112, 112);
+  color: rgb(29, 28, 37);
   background-color: white;
   padding: 2px 10px;
   font-size: 15px;
@@ -87,31 +87,50 @@ footer {
   cursor: default;
 }
 
-
 .weekly-forecast {
   overflow: auto;
   white-space: nowrap;
-
 }
 
-.weekly-forecast  .row, .col-2{
-   display: inline-block;
+.row,
+.col-2 {
+  display: inline-block;
   color: rgb(24, 21, 21);
   text-align: center;
   margin-right: 5px;
-  background-color: rgb(206, 203, 203, 0.4);
- border-radius: 5px;
- 
- 
-  
+  background-color: rgba(189, 188, 186, 0.4);
+  border-radius: 5px;
 }
-.weekly-forecast .col-2{
+.weekly-forecast .col-2 {
   padding: 10px;
-  color: rgb(99, 99, 180);
-  opacity: ;
+  color: rgb(212, 99, 24);
+}
+
+.min-temp {
+  opacity: 0.7;
+  color: rgb(223, 111, 19);
+}
+
+.img-icon {
+  display: block;
+}
+
+#quote{
+  display: block;
+  margin: 0 auto;
+
+ margin-top: 20px;
+ font-family: :Arial, Helvetica, sans-serif;
+ padding: 20px;
+ color: rgb(223, 88, 47);
+background-color: rgba(189, 188, 186, 0.2);
+ border-radius: 10px;
+ width: 70%;
 }
 
 
-.min-temp{
-  opacity: 0.7;
+@media all and(max-width: 500px){
+ body{
+   background-color: ;
+ }
 }

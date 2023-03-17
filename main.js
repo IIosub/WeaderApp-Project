@@ -1,7 +1,4 @@
-//First Display London Weather  and 7 days of forecast for start-up;
-
 let apiKey = "04bde8cc7f569f7c5603cdbc6deb89a3";
-
 let city = "London";
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
@@ -29,33 +26,28 @@ function formatDateAndTime(timestamp) {
   return `${day} ${hours}:${minutes}`;
 }
 
-//Full Week Forecats
-
-function displayWeeklyForecast(response) {
-  console.log(response.data.daily);
-  let weeklyForecast = document.querySelector("#weekly-forecast");
-  let forecastHTML = `<div class="row">`;
-  let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue", "Wed"];
-
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `<div class="col-2">
-        <div class="week-date">${day}</div>
-        <img src="https://openweathermap.org/img/wn/10d@2x.png" alt="" width="60">
-        <div class="day-temperature">
-          <span class="max-temp">10°</span> / <span class="min-temp">2°</span>
-        </div>
-      </div>
-    </div>`;
-  });
-
-  forecastHTML = forecastHTML + `</div>`;
-  weeklyForecast.innerHTML = forecastHTML;
+function displayWeekDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  return days[day];
 }
 
-///////////////////
-
+function weatherQuote() {
+  let quote = document.querySelector("#quote");
+  quote.innerHTML =
+    "“When all is said and done, the weather and love are the two elements about which one can never be sure.”\
+― Alice Hoffman, Here on Earth";
+}
+//Full Week Forecats
 function currentLondonTemperature(response) {
   let iconElement = document.querySelector("#icon");
   iconElement.setAttribute(
@@ -76,7 +68,7 @@ function currentLondonTemperature(response) {
 
   document.querySelector("#wind").innerHTML = ` Wind Speed: ${Math.round(
     response.data.wind.speed
-  )} mph`;
+  )} m/h`;
 
   document.querySelector(
     "#humidity"
@@ -88,6 +80,10 @@ function currentLondonTemperature(response) {
 
   let dateElement = document.querySelector("#dateElement");
   dateElement.innerHTML = formatDateAndTime(response.data.dt * 1000);
+
+  getWeeklyForecast(response.data.coord);
+
+  weatherQuote();
 }
 
 axios.get(apiUrl).then(currentLondonTemperature);
@@ -141,6 +137,34 @@ currentButton.addEventListener("click", displayCurrentCityAndTemp);
 //Explenation: When Selecting The button Search we want to have the search input (city) in the h1, and the the temperature to changed based on the city.
 
 //!!!!!!!!!!!!!!
+function displayWeeklyForecast(response) {
+  let forecast = response.data.daily;
+  console.log(forecast);
+  let weeklyForecast = document.querySelector("#weekly-forecast");
+  let forecastHTML = `<div class="row">`;
+
+  forecast.forEach(function (forecastDay) {
+    forecastHTML =
+      forecastHTML +
+      `<div class="col-2">
+        <div class="week-date">${displayWeekDay(forecastDay.dt)}</div>
+        <img src="https://openweathermap.org/img/wn/${
+          forecastDay.weather[0].icon
+        }@2x.png" alt="" width="60">
+        <div class="day-temperature">
+          <span class="max-temp">${Math.round(
+            forecastDay.temp.max
+          )}°</span> / <span class="min-temp">${Math.round(
+        forecastDay.temp.min
+      )}°</span>
+        </div>
+      </div>
+    </div>`;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  weeklyForecast.innerHTML = forecastHTML;
+}
 
 function getWeeklyForecast(coordinates) {
   console.log(coordinates);
@@ -188,14 +212,16 @@ function worldTemperature(response) {
   h1.innerHTML = response.data.name;
 
   getWeeklyForecast(response.data.coord);
+
+  weatherQuote();
 }
 
 // 2 Secondly we create the funtion wolrdCitiesAndTemp
 function worldCitiesAndTemp(event) {
   event.preventDefault();
-  //  3 I creeate a variable that will give me the city by typing in the search box input
+  //  3 / I creeate a variable that will give me the city by typing in the search box input
   let cityInput = document.querySelector("#city-input");
-  // 4 We place the input value in the weather api URL (cityInput.value)
+  // 4 / I place the input value in the weather api URL (cityInput.value)
   let newApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput.value}&appid=${apiKey}&units=metric`;
 
   // 5 Axiol will make a request on the location of the weather api, once the weather API returns Data, the function will be called with a parametre (respone).
