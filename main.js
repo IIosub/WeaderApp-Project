@@ -1,153 +1,143 @@
-let apiKey = "04bde8cc7f569f7c5603cdbc6deb89a3";
-let city = "London";
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+const apiKey = "04bde8cc7f569f7c5603cdbc6deb89a3";
+const defaultCity = "London";
+const days = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
 
-function formatDateAndTime(timestamp) {
-  let now = new Date(timestamp);
-  let hours = now.getHours();
-  if (hours < 10) {
-    hours = `0${hours}`;
+function formatDateAndTime(unixTimestamp) {
+  const date = new Date(unixTimestamp * 1000);
+
+  let hour = date.getHours();
+  if (hour < 10) {
+    hour = `0${hour}`;
   }
-  let minutes = now.getMinutes();
+  let minutes = date.getMinutes();
   if (minutes < 10) {
     minutes = `0${minutes}`;
   }
-  let days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  let day = days[now.getDay()];
+  const day = days[date.getDay()];
 
-  return `${day} ${hours}:${minutes}`;
+  return `${day} ${hour}:${minutes}`;
 }
 
-function displayWeekDay(timestamp) {
-  let date = new Date(timestamp * 1000);
-  let day = date.getDay();
-  let days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  return days[day];
+function getDayFromDate(unixTimestamp) {
+  const date = new Date(unixTimestamp * 1000);
+
+  return days[date.getDay()];
 }
 
-function weatherQuote() {
-  let quote = document.querySelector("#quote");
-  quote.innerHTML =
-    "“When all is said and done, the weather and love are the two elements about which one can never be sure.”\
-― Alice Hoffman, Here on Earth";
+let celsiusTemp = undefined;
+const fahrenheitTempButton = document.querySelector("#fahrenheit-unit");
+fahrenheitTempButton.addEventListener("click", convertToFahrenheit);
+const celsiusTempButton = document.querySelector("#celsius-unit");
+celsiusTempButton.addEventListener("click", convertToCelsius);
+
+function convertToFahrenheit(event) {
+  event.preventDefault();
+
+  const fahrenheitTemp = (celsiusTemp * 9) / 5 + 32;
+  const temperatureElement = document.querySelector(".temperature");
+  temperatureElement.innerHTML = Math.round(fahrenheitTemp);
 }
-//Full Week Forecats
-function currentLondonTemperature(response) {
-  let iconElement = document.querySelector("#icon");
+
+function convertToCelsius(event) {
+  event.preventDefault();
+
+  const temperatureElement = document.querySelector(".temperature");
+  temperatureElement.innerHTML = Math.round(celsiusTemp);
+}
+
+const builtInGeocodingApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${defaultCity}&appid=${apiKey}&units=metric`;
+axios.get(builtInGeocodingApiUrl).then(handleSearchResponse);
+
+function handleSearchResponse(response) {
+  celsiusTemp = Math.round(response.data.main.temp);
+
+  const iconElement = document.querySelector("#icon");
   iconElement.setAttribute(
     "src",
     `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
-  celsiusTemp = Math.round(response.data.main.temp);
-  let cityTemperature = Math.round(response.data.main.temp);
-  let temp = document.querySelector(".temperature");
-  temp.innerHTML = `${cityTemperature}`;
 
-  let cityElement = document.querySelector("h1");
+  const temperature = Math.round(response.data.main.temp);
+  const temperatureElement = document.querySelector(".temperature");
+  temperatureElement.innerHTML = temperature;
+
+  const cityElement = document.querySelector("h1");
   cityElement.innerHTML = response.data.name;
 
-  let currentDescription = response.data.weather[0].description;
-  let description = document.querySelector("#weather-description");
-  description.innerHTML = currentDescription;
+  const description = response.data.weather[0].description;
+  const descriptionElement = document.querySelector("#weather-description");
+  descriptionElement.innerHTML = description;
 
-  document.querySelector("#wind").innerHTML = ` Wind Speed: ${Math.round(
+  const windSpeedDisplay = document.querySelector("#wind");
+  windSpeedDisplay.innerHTML = `Wind Speed: ${Math.round(
     response.data.wind.speed
   )} m/h`;
 
-  document.querySelector(
-    "#humidity"
-  ).innerHTML = ` Humidity: ${response.data.main.humidity} %`;
+  const humidityDisplay = document.querySelector("#humidity");
+  humidityDisplay.innerHTML = ` Humidity: ${response.data.main.humidity} %`;
 
-  document.querySelector(
-    "#pressure"
-  ).innerHTML = `Pressure: ${response.data.main.pressure} hPA`;
+  const pressureDisplay = document.querySelector("#pressure");
+  pressureDisplay.innerHTML = `Pressure: ${response.data.main.pressure} hPA`;
 
-  let dateElement = document.querySelector("#dateElement");
-  dateElement.innerHTML = formatDateAndTime(response.data.dt * 1000);
+  let dateElement = document.querySelector("#date");
+  dateElement.innerHTML = formatDateAndTime(response.data.dt);
 
   getWeeklyForecast(response.data.coord);
-
-  weatherQuote();
 }
 
-axios.get(apiUrl).then(currentLondonTemperature);
+const searchButton = document.querySelector("#search-button");
+searchButton.addEventListener("click", getSearchCityTemp);
 
-// Challenge Current
-
-function getCoordinates(position) {
-  let lat = position.coords.latitude;
-  let lon = position.coords.longitude;
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&lon=${lon}&lat=${lat}&units=metric`;
-
-  axios.get(apiUrl).then(getTemperatureAndCity);
-}
-
-function getTemperatureAndCity(response) {
-  let currentCity = response.data.name;
-  let currentCityTemp = Math.round(response.data.main.temp);
-  let h1 = document.querySelector("h1");
-  h1.innerHTML = currentCity;
-
-  let temp = document.querySelector("#temperature");
-  temp.innerHTML = `${currentCityTemp}°`;
-
-  let currentDescription = response.data.weather[0].description;
-  let description = document.querySelector("#weather-description");
-  description.innerHTML = currentDescription;
-
-  document.querySelector(
-    "#wind"
-  ).innerHTML = ` Wind Speed: ${response.data.wind.speed} mph`;
-
-  document.querySelector(
-    "#humidity"
-  ).innerHTML = ` Humidity: ${response.data.main.humidity} %`;
-
-  document.querySelector(
-    "#pressure"
-  ).innerHTML = `Pressure: ${response.data.main.pressure} hPA`;
-}
-
-function displayCurrentCityAndTemp(event) {
+function getSearchCityTemp(event) {
   event.preventDefault();
-  navigator.geolocation.getCurrentPosition(getCoordinates);
+
+  const cityInput = document.querySelector("#city-input");
+  const builtInGeocodingApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput.value}&appid=${apiKey}&units=metric`;
+
+  axios.get(builtInGeocodingApiUrl).then(handleSearchResponse);
 }
 
-let currentButton = document.querySelector("#current-button");
-currentButton.addEventListener("click", displayCurrentCityAndTemp);
+const currentLocationButton = document.querySelector("#current-button");
+currentLocationButton.addEventListener("click", getCurrentCityAndTemp);
 
-//Challange Search
+function getCurrentCityAndTemp(event) {
+  event.preventDefault();
 
-//Explenation: When Selecting The button Search we want to have the search input (city) in the h1, and the the temperature to changed based on the city.
+  navigator.geolocation.getCurrentPosition(retrieveCurrentLocationWeather);
+}
 
-//!!!!!!!!!!!!!!
+function retrieveCurrentLocationWeather(position) {
+  const lat = position.coords.latitude;
+  const lon = position.coords.longitude;
+  const currentWeatherApiUrl = `https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&lon=${lon}&lat=${lat}&units=metric`;
+
+  axios.get(currentWeatherApiUrl).then(handleSearchResponse);
+}
+
+function getWeeklyForecast(coordinates) {
+  const apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+
+  axios.get(apiUrl).then(displayWeeklyForecast);
+}
+
 function displayWeeklyForecast(response) {
-  let forecast = response.data.daily;
-  console.log(forecast);
-  let weeklyForecast = document.querySelector("#weekly-forecast");
+  const forecast = response.data.daily;
+  const weeklyForecast = document.querySelector("#weekly-forecast");
   let forecastHTML = `<div class="row">`;
 
   forecast.forEach(function (forecastDay) {
     forecastHTML =
       forecastHTML +
       `<div class="col-2">
-        <div class="week-date">${displayWeekDay(forecastDay.dt)}</div>
+        <div class="week-date">${getDayFromDate(forecastDay.dt)}</div>
         <img src="https://openweathermap.org/img/wn/${
           forecastDay.weather[0].icon
         }@2x.png" alt="" width="60">
@@ -165,89 +155,3 @@ function displayWeeklyForecast(response) {
   forecastHTML = forecastHTML + `</div>`;
   weeklyForecast.innerHTML = forecastHTML;
 }
-
-function getWeeklyForecast(coordinates) {
-  console.log(coordinates);
-  apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
-  axios.get(apiUrl).then(displayWeeklyForecast);
-}
-
-//!!!!!!!!!!!!!!!
-
-// 6 We create the functions
-function worldTemperature(response) {
-  let iconElement = document.querySelector("#icon");
-  iconElement.setAttribute(
-    "src",
-    `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
-  );
-  // 7 We get the temperature
-
-  celsiusTemp = Math.round(response.data.main.temp);
-  let temperature = Math.round(response.data.main.temp);
-  // 9 We put select  dosplay temperature
-  let showTemp = document.querySelector("#temperature");
-  showTemp.innerHTML = `${temperature}`;
-  // 10 We also also select the description and display
-
-  document.querySelector("#weather-description").innerHTML =
-    response.data.weather[0].description;
-
-  console.log(response.data.weather[0].description);
-
-  document.querySelector(
-    "#wind"
-  ).innerHTML = ` Wind Speed: ${response.data.wind.speed} mph`;
-
-  document.querySelector(
-    "#humidity"
-  ).innerHTML = ` Humidity: ${response.data.main.humidity} %`;
-
-  document.querySelector(
-    "#pressure"
-  ).innerHTML = `Pressure: ${response.data.main.pressure} hPA`;
-
-  //11 Select h1 and replace with the name of the city
-  let h1 = document.querySelector("h1");
-  h1.innerHTML = response.data.name;
-
-  getWeeklyForecast(response.data.coord);
-
-  weatherQuote();
-}
-
-// 2 Secondly we create the funtion wolrdCitiesAndTemp
-function worldCitiesAndTemp(event) {
-  event.preventDefault();
-  //  3 / I creeate a variable that will give me the city by typing in the search box input
-  let cityInput = document.querySelector("#city-input");
-  // 4 / I place the input value in the weather api URL (cityInput.value)
-  let newApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput.value}&appid=${apiKey}&units=metric`;
-
-  // 5 Axiol will make a request on the location of the weather api, once the weather API returns Data, the function will be called with a parametre (respone).
-  axios.get(newApiUrl).then(worldTemperature);
-}
-
-//  1 Firstly we selected the search button and add a eventListener. Then the puton will  be clicked, the function worlsCitiesAndTemp is going to be cold.
-let searchButton = document.querySelector("#search-button");
-searchButton.addEventListener("click", worldCitiesAndTemp);
-
-function convertToFahrenheit(event) {
-  event.preventDefault();
-  let fahrenheitTemp = (celsiusTemp * 9) / 5 + 32;
-  let temperatureElement = document.querySelector("#temperature");
-  temperatureElement.innerHTML = Math.round(fahrenheitTemp);
-}
-
-let celsiusTemp = null;
-let fahrenheitConversion = document.querySelector("#fahrenheit-unit");
-fahrenheitConversion.addEventListener("click", convertToFahrenheit);
-
-function convertToCelsius(event) {
-  event.preventDefault();
-  let temperatureElement = document.querySelector("#temperature");
-  temperatureElement.innerHTML = Math.round(celsiusTemp);
-}
-
-let celsiusConversion = document.querySelector("#celsius-unit");
-celsiusConversion.addEventListener("click", convertToCelsius);

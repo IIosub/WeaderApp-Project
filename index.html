@@ -6,7 +6,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://kit.fontawesome.com/52fdcf775b.css" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
     integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -15,9 +14,10 @@
 </head>
 
 <body>
+  <!-- change ids to classes for all of them-->
   <div class="container">
     <div class="search-engine">
-      <input type="text" placeholder="Search for a city..." id="city-input" value="">
+      <input type="text" placeholder="Search for a city..." id="city-input">
       <button id="search-button">
         <i class="fa-solid fa-magnifying-glass"></i>
       </button>
@@ -25,29 +25,32 @@
       <button id="current-button"> <i class="fa-solid fa-location-arrow"></i></button>
     </div>
 
-    <div class="flex">
+    <main>
       <div class="live-weather">
         <h1></h1>
-
-        <strong id="temperature" class="temperature"></strong>
-        <span id="units-conversion"><a class="active" id="celsius-unit" href="">°C</a> | <a class="active"
-            id="fahrenheit-unit" href="">°F</a>
+        <strong class="temperature"></strong>
+        <!-- change span to div -->
+        <span id="units-conversion">
+          <!-- transform the links into buttons -->
+          <a class="active" id="celsius-unit" href="">°C</a> | <a class="active" id="fahrenheit-unit" href="">°F</a>
         </span>
+        <!-- change span to div -->
         <span class="img-icon">
           <img src="" alt="" id="icon">
         </span>
         <p id="weather-description">Cloudy</p>
-        <span id="dateElement">Saturday,20:45 </span>
+        <span id="date">Saturday, 20:45</span>
       </div>
 
       <div class="more-info">
         <p id="wind">Wind Speed <i class="fa-solid fa-wind"></i></p>
-        <p id="pressure">Pressure: % </p>
+        <p id="pressure">Pressure: %</p>
         <p id="humidity">Humidity %</p>
-        <div id="quote">Quote of the day</div>
+        <div id="quote">“When all is said and done, the weather and love are the two elements about which one can
+          never be sure.” ― Alice Hoffman, Here on Earth</div>
       </div>
       <div class="quotes"></div>
-    </div>
+    </main>
 
     <div class="weekly-forecast" id="weekly-forecast">
       <div class="week-date">Monday</div>
@@ -58,9 +61,6 @@
     </div>
   </div>
 
-
-
-  </div>
   <footer><a href="https://lambent-figolla-996abb.netlify.app">Open-source code</a> by Ioana Iosub</footer>
 
   <script src="main.js"></script>

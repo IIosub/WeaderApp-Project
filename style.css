@@ -2,7 +2,7 @@ body {
   background-color: antiquewhite;
 }
 
-div.container {
+.container {
   margin: 0 auto;
   width: 30%;
   background-image: url(https://static.vecteezy.com/system/resources/previews/001/953/692/original/abstract-colourful-watercolour-background-free-vector.jpg);
@@ -57,11 +57,12 @@ input {
 .temperature {
   font-size: 30px;
 }
+
 #weather-description:first-letter {
   text-transform: uppercase;
 }
 
-.flex {
+main {
   display: flex;
 }
 
@@ -93,6 +94,7 @@ input {
   background-color: rgba(189, 188, 186, 0.4);
   border-radius: 5px;
 }
+
 .weekly-forecast .col-2 {
   padding: 10px;
   color: rgb(212, 99, 24);
@@ -135,11 +137,12 @@ footer {
 }
 
 @media all and (max-width: 500px) {
-  div.container {
-    width: 80%;
-    height: 100%;
-  }
   body {
     background-color: white;
+  }
+
+  .container {
+    width: 80%;
+    height: 100%;
   }
 }
