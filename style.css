@@ -1,6 +1,7 @@
 body {
   background-color: antiquewhite;
 }
+
 div.container {
   margin: 0 auto;
   width: 30%;
@@ -17,11 +18,12 @@ div.container {
 input {
   border: none;
 }
+
 .search-engine {
   display: flex;
-  justify-content: end;
   margin-bottom: 20px;
 }
+
 .more-info {
   text-align: center;
   font-size: 15px;
@@ -64,8 +66,9 @@ input {
 }
 
 #fahrenheit-unit {
-  color: ;
+  color: rgb(226, 96, 96);
 }
+
 .active {
   text-decoration: none;
   color: rgb(99, 99, 180);
@@ -116,39 +119,26 @@ input {
   width: 80%;
 }
 
+#quote {
+  font-size: 12px;
+}
 
+footer a {
+  text-decoration: none;
+  color: rgb(76, 76, 219);
+}
 
-  footer {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 18px;
-  }
-
-  footer a {
-    text-decoration: none;
-    color: rgb(76, 76, 219);
+footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 20px;
+}
 
 @media all and (max-width: 500px) {
   div.container {
     width: 80%;
     height: 100%;
   }
-
-  #quote {
-    font-size: 12px;
-  }
-
-  footer a {
-    text-decoration: none;
-    color: rgb(76, 76, 219);
-  }
-
-  footer {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 20px;
-  }
-
   body {
     background-color: white;
   }
