@@ -146,9 +146,9 @@ function getWeeklyForecast(coordinates) {
     .catch((error) => console.error("Error fetching data:", error));
 }
 
-// Function to display the weekly forecast
+// Function to display the 5-day forecast
 function displayWeeklyForecast(data) {
-  const forecast = data.daily;
+  const forecast = data.daily.slice(0, 5); // Display forecast for only 5 days
   const weeklyForecast = document.querySelector("#weekly-forecast");
   let forecastHTML = `<div class="row">`;
 
