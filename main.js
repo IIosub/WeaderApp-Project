@@ -11,23 +11,6 @@ const days = [
   "Saturday",
 ];
 
-// Function to format date and time from Unix timestamp
-function formatDateAndTime(unixTimestamp) {
-  const date = new Date(unixTimestamp * 1000);
-
-  let hour = date.getHours();
-  if (hour < 10) {
-    hour = `0${hour}`;
-  }
-  let minutes = date.getMinutes();
-  if (minutes < 10) {
-    minutes = `0${minutes}`;
-  }
-  const day = days[date.getDay()];
-
-  return `${day} ${hour}:${minutes}`;
-}
-
 // Function to get day from Unix timestamp
 function getDayFromDate(unixTimestamp) {
   const date = new Date(unixTimestamp * 1000);
@@ -103,8 +86,9 @@ function handleSearchResponse(data) {
   const pressureDisplay = document.querySelector("#pressure");
   pressureDisplay.innerHTML = `Pressure: ${data.main.pressure} hPA`;
 
-  let dateElement = document.querySelector("#date");
-  dateElement.innerHTML = formatDateAndTime(data.dt);
+  // No longer displaying date and time
+  // let dateElement = document.querySelector("#date");
+  // dateElement.innerHTML = formatDateAndTime(data.dt);
 
   getWeeklyForecast(data.coord);
 }
