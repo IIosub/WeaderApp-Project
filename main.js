@@ -61,6 +61,7 @@ function convertToCelsius(event) {
 
   const temperatureElement = document.querySelector(".temperature");
   temperatureElement.innerHTML = Math.round(celsiusTemp);
+}
 
 // API request for the default city
 const builtInGeocodingApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${defaultCity}&appid=${apiKey}&units=metric`;
