@@ -153,10 +153,18 @@ function displayWeeklyForecast(data) {
   let forecastHTML = `<div class="row">`;
 
   forecast.forEach(function (forecastDay) {
+    const dayDate = new Date(forecastDay.dt * 1000);
+    const formattedDate = `${(dayDate.getMonth() + 1)
+      .toString()
+      .padStart(2, "0")}/${dayDate
+      .getDate()
+      .toString()
+      .padStart(2, "0")}/${dayDate.getFullYear()}`;
+
     forecastHTML =
       forecastHTML +
       `<div class="col-2">
-        <div class="week-date">${getDayFromDate(forecastDay.dt)}</div>
+        <div class="week-date">${formattedDate}</div>
         <img src="https://openweathermap.org/img/wn/${
           forecastDay.weather[0].icon
         }@2x.png" alt="" width="60">
