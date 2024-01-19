@@ -28,3 +28,8 @@ For a user exploring future weather conditions, offer a 5-day forecast that incl
 Date
 Icon representation of weather conditions
 Temperature
+
+##Sample
+
+![screencapture-127-0-0-1-3002-index-html-2024-01-19-19_24_14](https://github.com/IIosub/WeaderApp-Project/assets/114613610/927fd167-847b-4943-8248-72542a6faea4)
+
